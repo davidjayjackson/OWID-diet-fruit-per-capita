@@ -35,13 +35,10 @@ countries_five %>% filter(Year >="2010") %>%
   labs(title="Fruit Consumption by Country by Year/Kg/Person")
 
 
-
 ggplot(countries_five) + geom_line(aes(x=Year,y=Fruits,col=Country)) +
   labs(title = "Fruit Consumption Kg/Person/Year",subtitle = "( Top 5 countries)",
-       y="Fruit Consumed per person Kg") + facet_wrap(~Country,scale="free_y",ncol=2)
-
-
-
+       y="Fruit Consumed per person Kg") + facet_wrap(~Country,scale="free_y",ncol=2) +
+  geom_smooth(aes(x=Year, y= Fruits),method="lm")
 
 
 ### Plot of US Fruit consumption 
