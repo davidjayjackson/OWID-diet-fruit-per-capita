@@ -2,6 +2,10 @@ library(ggplot2)
 library(scales)
 library(dplyr)
 library(tidyr)
+library(gganimate)
+library(gapminder)
+library(ggthemes)
+
 ## Import Fruit Consumption data
 rm(list=ls())
 fruit <- read.csv("./DATA/1-fruit-consumption-per-capita.csv")
@@ -19,11 +23,27 @@ ggplot(fruits_top) +
 countries_five <- fruits_top %>% select(Country) %>% left_join(fruit,by="Country")
 head(countries_five)
 tail(countries_five)
-### Plot Top % Countries by Kg cosummed per year per person.
+### Plot Top % Countries by Kg consumed per year per person.
 ##
 ggplot(countries_five) + geom_line(aes(x=Year,y=Fruits,col=Country)) +
   labs(title = "Fruit Consumption Kg/Person/Year",subtitle = "( Top 5 countries)",
        y="Fruit Consumed per person Kg")
+
+countries_five %>% filter(Year >="2010") %>%
+  ggplot() + geom_col(aes(x=Country,y=Fruits)) + 
+  facet_wrap(~Year,ncol=2) + coord_flip() +
+  labs(title="Fruit Consumption by Country by Year/Kg/Person")
+
+
+
+ggplot(countries_five) + geom_line(aes(x=Year,y=Fruits,col=Country)) +
+  labs(title = "Fruit Consumption Kg/Person/Year",subtitle = "( Top 5 countries)",
+       y="Fruit Consumed per person Kg") + facet_wrap(~Country,scale="free_y",ncol=2)
+
+
+
+
+
 ### Plot of US Fruit consumption 
 
 fruit %>% filter(Country =="United States") %>%
