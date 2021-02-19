@@ -27,7 +27,7 @@ summary(fruit_type_long)
 ### PLot of Fruit Consumption Wroldwide by Fruit Type
 
 fruit_type_long %>% filter(Country =="World" & Fruit !="Other") %>% 
-  ggplot() + geom_line(aes(x=Year,y=perCapita,col=Fruit,size=0.5)) +
+  ggplot() + geom_line(aes(x=Year,y=perCapita,col=Fruit),size=1.5) +
   labs(title="Wroldwide: Fruit Consumption per Person by Fruit and Year",
        caption = "(Average fruit consumption per person, differentiated by fruit types, measured in Kilograms per Year)",
        y="Kilograms per Person") + guides(color = guide_legend(override.aes = list(size = 2))) +
@@ -38,7 +38,7 @@ fruit_type_long %>% filter(Country =="World" & Fruit !="Other") %>%
 ### Plot US Yearly Fruit Consumption
 
 fruit_type_long %>% filter(Country =="United States" & Fruit !="Other") %>% 
-  ggplot() + geom_line(aes(x=Year,y=perCapita,col=Fruit,size=0.5)) +
+  ggplot() + geom_line(aes(x=Year,y=perCapita,col=Fruit,),size=1.5) +
   labs(title="United States:Fruit Consumption per Person by Fruit and Year",
        caption = "(Average fruit consumption per person, differentiated by fruit types, measured in Kilograms per Year)",
        y="Kilograms per Person") + guides(color = guide_legend(override.aes = list(size = 2))) +
