@@ -46,3 +46,5 @@ fruit_type_long %>% filter(Country =="United States" & Fruit !="Other") %>%
     labels = scales::number_format(accuracy = 0.01,
                                    decimal.mark = '.')) 
 
+
+
