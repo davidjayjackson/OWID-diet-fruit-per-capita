@@ -28,7 +28,7 @@ summary(fruit_type_long)
 
 fruit_type_long %>% filter(Country =="World" & Fruit !="Other") %>% 
   ggplot() + geom_line(aes(x=Year,y=perCapita,col=Fruit),size=1.5) +
-  labs(title="Wroldwide: Fruit Consumption per Person by Fruit and Year",
+  labs(title="Worldwide: Fruit Consumption per Person by Fruit and Year",
        caption = "(Average fruit consumption per person, differentiated by fruit types, measured in Kilograms per Year)",
        y="Kilograms per Person") + guides(color = guide_legend(override.aes = list(size = 2))) +
   scale_y_continuous(
@@ -47,4 +47,24 @@ fruit_type_long %>% filter(Country =="United States" & Fruit !="Other") %>%
                                    decimal.mark = '.')) 
 
 
+### Fruits Consumption Per Person Per Year  for top 5 Countries
+
+fruit <- read.csv("./DATA/1-fruit-consumption-per-capita.csv")
+fruit <- fruit %>%select(-Code) 
+colnames(fruit) <- c("Country","Year","Fruits")
+fruits_top <- fruit %>% filter(Year =="2017") %>%  top_n(5,Fruits)
+fruits_top <- as.data.frame(fruits_top)
+
+countries_five <- fruits_top %>% select(Country) %>% left_join(fruit_type_long,by="Country") %>% na.omit()
+head(countries_five)
+tail(countries_five)
+
+###
+ggplot(countries_five) + geom_line(aes(x=Year,y=perCapita,col=Fruit),size=1.5) + 
+  facet_wrap(~Country,scale="free_y",ncol=2) + labs(title="Top 5 Countries by Fruit")
+
+countries_five %>%filter(Year >="2007") %>%
+  ggplot() + geom_col(aes(x=reorder(Fruit,perCapita),y=perCapita)) + 
+  facet_wrap(~Year,scale="free_y",ncol=2) + coord_flip() +
+  labs(title="Fruit Consumption by Year",y="Kilograms/Person/Year")
 
